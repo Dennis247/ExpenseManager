@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 class Budget {
   final String id;
-  final double amount;
+  final int amount;
   final String categoryId;
   final String yearMonth;
 

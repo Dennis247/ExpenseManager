@@ -1,3 +1,6 @@
+import 'package:expense_tracker/models/budget.dart';
+import 'package:expense_tracker/services/budgetService.dart';
+import 'package:expense_tracker/services/categoryService.dart';
 import 'package:expense_tracker/ui/widgets/appButtonWidget.dart';
 import 'package:expense_tracker/ui/widgets/appInputWidget.dart';
 import 'package:expense_tracker/ui/widgets/appMonthYearWidget.dart';
@@ -6,8 +9,10 @@ import 'package:expense_tracker/ui/widgets/globalWidgets.dart';
 import 'package:expense_tracker/utils/appStyles.dart';
 import 'package:expense_tracker/utils/helpers.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:month_picker_dialog/month_picker_dialog.dart';
+import 'package:uuid/uuid.dart';
+
+import '../../../main.dart';
+import 'budgetPage.dart';
 
 class AddBudgetPage extends StatefulWidget {
   static final routeName = "add-budget-page";
@@ -19,8 +24,36 @@ class _AddBudgetPageState extends State<AddBudgetPage> {
   TextEditingController _categoryController = TextEditingController();
   TextEditingController _amountController = TextEditingController();
   TextEditingController _dateController = TextEditingController();
-
   final _formKey = GlobalKey<FormState>();
+
+  void _addExpesnse() {
+    //check if form is valid
+    bool isValid = _formKey.currentState.validate();
+    if (!isValid) return;
+    final selectedCategory = locator<CategoryService>().selectedCategory;
+    int amount = Helpers.getFormattedAmount(_amountController.text);
+    var expense = Budget(
+        id: Uuid().v4(),
+        categoryId: selectedCategory.id,
+        amount: amount,
+        yearMonth: _dateController.text);
+    final response = locator<BudgetService>().addBudget(expense);
+    if (response.isSucessfull) {
+      GlobalWidgets.showSuccessDialogue("Budget Added Sucessfully", context,
+          function: () {
+        //go to expensePage
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            BudgetPage.routeName, (Route<dynamic> route) => false);
+      }, dismiss: false);
+    }
+  }
+
+  @override
+  void initState() {
+    _dateController.text = Helpers.getFormattedDate(DateTime.now());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final appSize = GlobalWidgets.getAppSize(context);
@@ -73,24 +106,13 @@ class _AddBudgetPageState extends State<AddBudgetPage> {
                           controller: _dateController,
                         ),
                         SizedBox(
-                          height: appSize.height * 0.1,
+                          height: appSize.height * 0.08,
                         ),
                         AppButtonWudget(
                           width: appSize.width,
                           buttonText: "SUBMIT",
                           function: () {
-                            bool isValid = _formKey.currentState.validate();
-                            if (!isValid) return;
-                            // Navigator.of(context).push(MaterialPageRoute(
-                            //     builder: (context) =>
-                            //         ConfirmElectricityPaymentPage(
-                            //           amount: _amountController.text,
-                            //           accountno:
-                            //               _accountNumberController.text,
-                            //           disco: _discoController.text,
-                            //           paymenttype:
-                            //               _selectedPaymentTypeController.text,
-                            //         )));
+                            _addExpesnse();
                           },
                         ),
                         SizedBox(

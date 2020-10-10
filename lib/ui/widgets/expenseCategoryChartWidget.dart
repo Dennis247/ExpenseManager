@@ -1,5 +1,6 @@
 import 'package:expense_tracker/services/expenseService.dart';
 import 'package:expense_tracker/ui/pages/expense/editExpense.dart';
+import 'package:expense_tracker/utils/helpers.dart';
 import 'package:expense_tracker/viewmodels/chartCategory.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -42,7 +43,7 @@ class _ExpenseCategortyChartWidgetState
             // Set a label accessor to control the text of the arc label.
 
             labelAccessorFn: (ChartCategory row, _) =>
-                '${row.category}-${row.count}',
+                '${row.category}-${Helpers.getCurrencyString(row.count)}',
           )
         ],
         selectionModels: [
@@ -68,7 +69,7 @@ class _ExpenseCategortyChartWidgetState
               labelPosition: charts.ArcLabelPosition.outside,
               labelPadding: 0,
               outsideLabelStyleSpec: new charts.TextStyleSpec(
-                  fontSize: 8,
+                  fontSize: 10,
                   color: charts.ColorUtil.fromDartColor(Colors.black)))
         ]));
   }

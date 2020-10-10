@@ -47,11 +47,11 @@ class MOckData {
   ];
 
   static List<Category> categoryLIst = [
-    Category(id: "1", name: "Food", iconData: FontAwesomeIcons.caretRight),
+    Category(id: "1", name: "Food", iconData: FontAwesomeIcons.cheese),
     Category(id: "2", name: "School", iconData: FontAwesomeIcons.school),
     Category(id: "3", name: "Music", iconData: FontAwesomeIcons.music),
     Category(id: "4", name: "Health", iconData: FontAwesomeIcons.hospital),
-    Category(id: "5", name: "Shopping", iconData: FontAwesomeIcons.shopify)
+    Category(id: "5", name: "Games", iconData: FontAwesomeIcons.gamepad)
   ];
 
   static List<ChartCategory> monthlyExpenseList = [

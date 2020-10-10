@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
+import 'package:flutter_multi_formatter/formatters/money_input_formatter.dart';
 import 'package:intl/intl.dart';
 
 class Helpers {
@@ -29,6 +31,11 @@ class Helpers {
     return int.parse(amt);
   }
 
+  static String getCurrencyString(int value) {
+    return (value.toCurrencyString(
+        leadingSymbol: "N", mantissaLength: 0, useSymbolPadding: true));
+  }
+
   static Color getChartColor(String category) {
     if (category == "Food") {
       return Colors.green;
@@ -45,7 +52,7 @@ class Helpers {
     if (category == "Drinks") {
       return Colors.purple;
     }
-    if (category == "Shopping") {
+    if (category == "Games") {
       return Colors.orange;
     }
 

@@ -1,4 +1,5 @@
 import 'package:expense_tracker/Data/mockData.dart';
+import 'package:expense_tracker/services/budgetService.dart';
 import 'package:expense_tracker/services/categoryService.dart';
 import 'package:expense_tracker/services/expenseService.dart';
 import 'package:expense_tracker/ui/pages/budget/budgetPage.dart';
@@ -76,6 +77,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final appSize = GlobalWidgets.getAppSize(context);
     final currentExpesne = locator<ExpenseService>().getTotalExpenseByYearMonth(
+        yearMonth: Helpers.getFormattedDate(DateTime.now()));
+    final currentBudget = locator<BudgetService>().getTotalBudgetByYearMonth(
         yearMonth: Helpers.getFormattedDate(DateTime.now()));
     return SafeArea(
       child: Scaffold(
@@ -155,7 +158,7 @@ class _HomePageState extends State<HomePage> {
                                                   .smallblackTextStyle,
                                             ),
                                             Text(
-                                              ("N $currentExpesne"),
+                                              ("${Helpers.getCurrencyString(currentExpesne)}"),
                                               style: AppTextStyles
                                                   .appPrimaryColorHeaderTextStyle,
                                             ),
@@ -173,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                                                   .smallblackTextStyle,
                                             ),
                                             Text(
-                                              ("N 10,000"),
+                                              ("${Helpers.getCurrencyString(currentBudget)}"),
                                               style: AppTextStyles
                                                   .appGreenHeaderTextStyle,
                                             ),

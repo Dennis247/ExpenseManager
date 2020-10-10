@@ -45,7 +45,7 @@ class _ExpensePageState extends State<ExpensePage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            "My Expenses",
+            "My Expense",
             style: AppTextStyles.appLightHeaderTextStyle,
           ),
           elevation: 0,
@@ -80,13 +80,13 @@ class _ExpensePageState extends State<ExpensePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          "Total Expense : N $totalExpense",
+                          "Total Expense : ${Helpers.getCurrencyString(totalExpense)}",
                           style: AppTextStyles.appBlackigTextStyle,
                         ),
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      padding: const EdgeInsets.only(left: 25, right: 25),
                       child: Container(
                           alignment: Alignment.center,
                           height: appSize.height * 0.4,
