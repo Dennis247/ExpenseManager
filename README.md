@@ -13,4 +13,7 @@ get_it was used for dependency injection.
 Use date range for get budget & expense for a particular period(mont & year);
 
 
+![alt text](https://github.com/Dennis247/ExpenseManager/blob/main/ss/ss.jpg)
+
+
 
